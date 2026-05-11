@@ -56,14 +56,12 @@ const userSchema = new mongoose.Schema(
 );
 
 // Hash password before saving
-userSchema.pre('save', async function (next) {
+userSchema.pre('save', async function () {
   if (!this.isModified('password') || !this.password) {
-    return next();
+    return;
   }
 
   this.password = await bcrypt.hash(this.password, 12);
-
-  next();
 });
 
 // Compare password
@@ -72,11 +70,10 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 // Generate referral code
-userSchema.pre('save', function (next) {
+userSchema.pre('save', function () {
   if (!this.referralCode) {
     this.referralCode = Math.random().toString(36).substring(2, 8).toUpperCase();
   }
-  next();
 });
 
 export default mongoose.model('User', userSchema);
