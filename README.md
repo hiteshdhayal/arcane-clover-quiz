@@ -4,7 +4,7 @@
 
 ![Onboarding Screenshot](client/src/assets/sol_fishing_bg.png)
 
-## ✨ Features
+## ✨ Features=>
 
 - **Real-Time Trivia**: Live multiplayer quiz sessions synchronized via WebSockets.
 - **Earn SOL**: Integrated crypto payment flows for entry fees and prize distributions.
