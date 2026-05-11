@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import WalletConnectButton from '../components/WalletConnectButton';
+import PaymentModal from '../components/PaymentModal';
 import { useStore } from '../context/AppContext';
 import memeImg from '../assets/meme.png';
 import politicsImg from '../assets/politics.png';
@@ -49,6 +53,20 @@ export default function Home() {
   const navigate = useNavigate();
   const { user } = useStore();
   const [hoveredCard, setHoveredCard] = useState(null);
+  
+  const wallet = useWallet();
+  const { setVisible } = useWalletModal();
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
+
+  const handleJoinQuiz = (quizInfo) => {
+    if (!wallet.connected) {
+      setVisible(true); // show wallet connect modal
+      return;
+    }
+    setSelectedQuiz(quizInfo);
+    setPaymentModalOpen(true);
+  };
 
   const walletLinked = user?.walletAddresses?.solana;
 
@@ -95,16 +113,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Link Wallet */}
-          <button
-            className={`hn-pill hn-pill-wallet ${walletLinked ? 'hn-wallet-linked' : ''}`}
-            onClick={() => navigate('/wallet')}
-          >
-            <span className="hn-pill-icon">{walletLinked ? '✅' : '🔗'}</span>
-            <span className="hn-pill-label">
-              {walletLinked ? 'Wallet Linked' : 'Link Wallet'}
-            </span>
-          </button>
+          {/* Solana Wallet Connect */}
+          <WalletConnectButton />
         </div>
       </nav>
 
@@ -118,7 +128,7 @@ export default function Home() {
           <p className="hero-band-prize">$2,000</p>
           <p className="hero-band-label">WARs Grand Finale</p>
         </div>
-        <button className="hero-join-btn" onClick={() => navigate('/live')}>
+        <button className="hero-join-btn" onClick={() => handleJoinQuiz({ title: 'WARs Grand Finale', prize: '$2,000', id: 'main' })}>
           ⚡ Join Live Show
         </button>
       </div>
@@ -134,7 +144,7 @@ export default function Home() {
               className={`hc-card ${hoveredCard === i ? 'hc-card-hovered' : ''}`}
               onMouseEnter={() => setHoveredCard(i)}
               onMouseLeave={() => setHoveredCard(null)}
-              onClick={() => navigate('/live')}
+              onClick={() => handleJoinQuiz({ ...game, id: i })}
             >
               {/* Image fills card */}
               <div className="hc-img-wrap">
@@ -219,6 +229,15 @@ export default function Home() {
           </div>
         </div>
       </footer>
+      
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={paymentModalOpen}
+        onClose={() => setPaymentModalOpen(false)}
+        onJoin={() => navigate('/live')}
+        quizId={selectedQuiz?.id}
+        prizePool={selectedQuiz?.prize}
+      />
     </div>
   );
 }

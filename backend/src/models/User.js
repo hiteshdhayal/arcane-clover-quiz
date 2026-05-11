@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema(
       ethereum: { type: String, default: null },
       solana: { type: String, default: null },
     },
+    walletAddress: { type: String, default: null }, // added as per requirements
 
     // Balances
     balance: { type: Number, default: 0.5, min: 0 }, // starts with $0.50 free credit
