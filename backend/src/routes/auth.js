@@ -74,6 +74,7 @@ router.post('/google', async (req, res) => {
       });
       if (!response.ok) throw new Error('Invalid Google token');
       payload = await response.json();
+      console.log("GOOGLE PAYLOAD:", payload);
     } catch (e) {
       return res.status(401).json({ success: false, message: 'Invalid Google token' });
     }
@@ -94,7 +95,9 @@ router.post('/google', async (req, res) => {
     const jwtToken = generateToken(user._id);
     res.json({ success: true, token: jwtToken, user: { id: user._id, name: user.name, email: user.email, balance: user.balance, stats: user.stats, league: user.league } });
   } catch (err) {
-    console.error("GOOGLE AUTH ERROR:", err);
+    console.error("GOOGLE AUTH ERROR FULL:", err);
+    console.error(err.stack);
+
     res.status(500).json({
       success: false,
       message: err.message,
