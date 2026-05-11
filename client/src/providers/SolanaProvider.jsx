@@ -3,11 +3,8 @@ import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
-import {
-    PhantomWalletAdapter,
-    BackpackWalletAdapter,
-    SolflareWalletAdapter
-} from '@solana/wallet-adapter-wallets';
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
+import { SolflareWalletAdapter } from "@solana/wallet-adapter-solflare";
 
 // Default styles that can be overridden by your app
 import '@solana/wallet-adapter-react-ui/styles.css';
@@ -22,7 +19,6 @@ export const SolanaProvider = ({ children }) => {
     const wallets = useMemo(
         () => [
             new PhantomWalletAdapter(),
-            new BackpackWalletAdapter(),
             new SolflareWalletAdapter(),
         ],
         // eslint-disable-next-line react-hooks/exhaustive-deps
