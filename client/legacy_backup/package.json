@@ -1,0 +1,13 @@
+{
+  "name": "pulse-trivia",
+  "version": "1.0.0",
+  "description": "Pulse - Live Trivia Game Show with Real Cash Prizes",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
