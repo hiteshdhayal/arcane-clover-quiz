@@ -94,7 +94,11 @@ router.post('/google', async (req, res) => {
     const jwtToken = generateToken(user._id);
     res.json({ success: true, token: jwtToken, user: { id: user._id, name: user.name, email: user.email, balance: user.balance, stats: user.stats, league: user.league } });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error("GOOGLE AUTH ERROR:", err);
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
   }
 });
 
