@@ -48,8 +48,8 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Email and password required' });
 
     const user = await User.findOne({ email }).select('+password');
-    if (!user || !(await user.comparePassword(password)))
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+    if (!user || !user.password || !(await user.comparePassword(password)))
+      return res.status(401).json({ success: false, message: 'Invalid credentials or please login with Google' });
 
     user.lastLogin = new Date();
     await user.save();
