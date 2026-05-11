@@ -48,11 +48,11 @@ export default function PaymentModal({ isOpen, onClose, onJoin, quizId, prizePoo
       // 2. Send to backend to verify
       const token = localStorage.getItem('pulse_token');
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      const verifyRes = await fetch(\`\${apiUrl}/api/payment/verify\`, {
+      const verifyRes = await fetch(`${apiUrl}/api/payment/verify`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'Authorization': \`Bearer \${token}\`
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           txHash,
@@ -104,7 +104,7 @@ export default function PaymentModal({ isOpen, onClose, onJoin, quizId, prizePoo
         animation: 'modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
       }}>
         <style>
-          {\`
+          {`
             @keyframes modalFadeIn {
               from { opacity: 0; transform: scale(0.95) translateY(20px); }
               to { opacity: 1; transform: scale(1) translateY(0); }
@@ -114,7 +114,7 @@ export default function PaymentModal({ isOpen, onClose, onJoin, quizId, prizePoo
               -webkit-background-clip: text;
               -webkit-text-fill-color: transparent;
             }
-          \`}
+          `}
         </style>
 
         <div className="modal-handle" style={{ background: 'rgba(255, 255, 255, 0.1)', width: '40px', height: '4px', borderRadius: '2px', margin: '0 auto 24px' }} />
@@ -138,7 +138,7 @@ export default function PaymentModal({ isOpen, onClose, onJoin, quizId, prizePoo
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
             <span style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '14px', fontWeight: '500' }}>Your Balance</span>
-            <span style={{ fontWeight: '600' }}>{balance !== null ? \`\${balance.toFixed(4)} SOL\` : '---'}</span>
+            <span style={{ fontWeight: '600' }}>{balance !== null ? `${balance.toFixed(4)} SOL` : '---'}</span>
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
             <span style={{ color: 'rgba(255, 255, 255, 0.4)', fontSize: '14px', fontWeight: '500' }}>Prize Pool</span>

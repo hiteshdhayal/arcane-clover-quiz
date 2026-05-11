@@ -22,7 +22,7 @@ export default function WalletConnectButton() {
   return (
     <div className="wallet-button-container" style={{ position: 'relative' }}>
       <style>
-        {\`
+        {`
           .wallet-button-container .wallet-adapter-button {
             background: linear-gradient(135deg, #9945FF 0%, #14F195 100%) !important;
             border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -62,7 +62,7 @@ export default function WalletConnectButton() {
           .wallet-adapter-dropdown-list-item:hover {
             background: rgba(255, 255, 255, 0.05) !important;
           }
-        \`}
+        `}
       </style>
       <WalletMultiButton />
     </div>
